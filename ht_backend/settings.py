@@ -153,6 +153,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CORS Settings
 CORS_ALLOWED_ORIGINS = [
     "https://ht-frontht.vercel.app",
+    "https://ht-front-8aw34nk90-rakshiths-projects-4a0db9f2.vercel.app",
     "http://localhost:5173",
     "http://localhost:3000",
     "http://127.0.0.1:5173",
@@ -161,7 +162,7 @@ CORS_ALLOWED_ORIGINS = [
 
 # Allow Vercel preview deployments (e.g. https://project-git-main-user.vercel.app)
 CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://ht-frontht.*\.vercel\.app$",
+    r"^https://ht-front.*\.vercel\.app$",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -190,6 +191,8 @@ CORS_ALLOW_HEADERS = [
 # Disable CSRF for API endpoints (since we're using token-based auth)
 CSRF_TRUSTED_ORIGINS = [
     "https://ht-frontht.vercel.app",
+    "https://ht-front-8aw34nk90-rakshiths-projects-4a0db9f2.vercel.app",
+    "https://*.vercel.app",
     "http://localhost:5173",
     "http://localhost:3000",
 ]
