@@ -215,12 +215,12 @@ REST_FRAMEWORK = {
 }
 
 # Session settings for cross-origin cookies
-SESSION_COOKIE_SAMESITE = 'Lax'  # Allow cross-origin on localhost
-SESSION_COOKIE_SECURE = False  # Set to True in production with HTTPS
+SESSION_COOKIE_SAMESITE = 'None'  # Must be None for cross-site (Vercel -> Railway)
+SESSION_COOKIE_SECURE = True  # Must be True for SameSite=None
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_AGE = 1209600  # 2 weeks
-CSRF_COOKIE_SAMESITE = None
-CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = True
 
 # Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
