@@ -39,6 +39,10 @@ def login_view(request):
             # Get user's groups
             groups = list(user.groups.values_list('name', flat=True))
             
+            # If user is superuser, add 'Manager' role for frontend permissions
+            if user.is_superuser and 'Manager' not in groups:
+                groups.append('Manager')
+            
             print(f"DEBUG: Login successful for {user.username}")
             return Response({
                 'message': 'Login successful',
