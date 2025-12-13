@@ -17,7 +17,6 @@ class MemoryViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminOrManagerOrReadOnly]
 
     def create(self, request, *args, **kwargs):
-        # Create a mutable copy of the data
         data = request.data.copy()
         
         # Check if a file was uploaded
@@ -30,7 +29,7 @@ class MemoryViewSet(viewsets.ModelViewSet):
                 # Convert to base64
                 encoded_string = base64.b64encode(file_content).decode('utf-8')
                 
-                # Determine mime type (simple check or default)
+                # Determine mime type
                 mime_type = uploaded_file.content_type if uploaded_file.content_type else 'application/octet-stream'
                 
                 # Create data URI
@@ -41,6 +40,11 @@ class MemoryViewSet(viewsets.ModelViewSet):
             except Exception as e:
                 return Response({'error': f'File processing failed: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
         
+        # If file is NOT in request.FILES, check if it's already in data (base64 string case)
+        # If not, it will likely fail validation, but let's be explicit
+        elif 'file' not in data or not data['file']:
+             return Response({'error': 'No file provided. request.FILES is empty and data["file"] is empty.'}, status=status.HTTP_400_BAD_REQUEST)
+
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
